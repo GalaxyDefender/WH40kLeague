@@ -34,11 +34,17 @@ include("connection.php");
 //        } else {
 //            $password = validateFormData( $_POST["password"] );
 //        }
+        if(isset($_POST["faction"])){
+
+            $faction = $_POST["faction"];
+        } else {
+            $factionError = "Please enter your faction <br>";
+        }
 //        
-        if ($player_name && $email) {
+        if ($player_name && $email && $faction) {
             
             $query = "INSERT INTO players (id, player_name, army_faction, email, signup_date) 
-            VALUES (NULL, '$player_name', '', '$email', CURRENT_TIMESTAMP)" ;
+            VALUES (NULL, '$player_name', '$faction', '$email', CURRENT_TIMESTAMP)" ;
 
             if(mysqli_query($conn, $query)){
                 echo "<div class='alert alert-success'>New record in database</div>";
@@ -82,44 +88,44 @@ include("connection.php");
             <small class="text-danger">* <?php echo $nameError; ?></small>
             <input type="text" placeholder="Full name" name="player_name"><br><br>
             
+            <small class="text-danger">* <?php echo $factionError; ?></small>
             <?php
             
-                $factions = array
-                    (
-                        array("Space Marines","SM"),
-                        array("Dark Angels","DA"),
-                        array("Blood Angels","BA"),
-                        array("Space Wolves","SW"),
-                        array("Grey Knights","GK"),
-                        array("Skitarii","skitarii"),
-                        array("Chaos Space Marines","CSM"),
-                        array("Eldar","eldar"),
-                        array("Astra Millitarum","ASM"),
-                        array("Millitarum Tempestus","MT"),
-                        array("Inquisition","inq"),
-                        array("Adepta Sororitas","AS"),
-                        array("Cult Mechanicus","admech"),
-                        array("Fallen Angels","fallen"),
-                        array("Chaos Daemons", "deamons"),
-                        array("Dark Eldar", "DE"),
-                        array("Harlequins", "harleys"),
-                        array("Ynnari", "ynnari"),
-                        array("Tau", "tau"),
-                        array("Orks", "orks"),
-                        array("Necrons", "necrons"),
-                        array("Tyranids", "nids"),
-                        array("Genestealer Cults", "GC"),
-                        array("Sisters of Silence", "SS"),
-                        array("Adeptus Custodes", "custodes")           
+                $factions = array(
+                        "Space Marines",
+                        "Dark Angels",
+                        "Blood Angels",
+                        "Space Wolves",
+                        "Grey Knights",
+                        "Skitarii",
+                        "Chaos Space Marines",
+                        "Eldar",
+                        "Astra Millitarum",
+                        "Millitarum Tempestus",
+                        "Inquisition",
+                        "Adepta Sororitas",
+                        "Cult Mechanicus",
+                        "Fallen Angels",
+                        "Chaos Daemons",
+                        "Dark Eldar",
+                        "Harlequins",
+                        "Ynnari",
+                        "Tau",
+                        "Orks",
+                        "Necrons",
+                        "Tyranids",
+                        "Genestealer Cults",
+                        "Sisters of Silence",
+                        "Adeptus Custodes"
                     );
                 sort($factions);
-            
+
                 echo "<select name='faction' class='form-control'>";
                 echo "<option value=''>Please Select Faction</option>";
                 foreach($factions as $faction){
-                    echo "<option value=".$faction[1].">".$faction[0]."</option>";
+                    echo "<option>".$faction."</option>";
                 }
-                echo "</select>";
+                echo "</select><br>";
                 
             ?>
 
